@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Servio by Softnix - AI Customer Support Agent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Sarabun', 'sans-serif'],
+              display: ['Poppins', 'sans-serif'],
+            },
+            colors: {
+              softnix: {
+                orange: '#F3903F',
+                yellow: '#FDC70C',
+                lime: '#A9CB2E',
+                blue: '#2786C2',
+                navy: '#0D1B2A',
+                charcoal: '#1B263B',
+                slate: '#778DA9',
+                offwhite: '#F8F9FA',
+              }
+            },
+            backgroundImage: {
+              'layer3-gradient': 'linear-gradient(90deg, #FDC70C 0%, #A9CB2E 100%)',
+              'sunrise-gradient': 'linear-gradient(135deg, #F3903F 0%, #FDC70C 100%)',
+              'nature-gradient': 'linear-gradient(135deg, #A9CB2E 0%, #2786C2 100%)',
+              'full-spectrum': 'linear-gradient(135deg, #F3903F 0%, #FDC70C 33%, #A9CB2E 66%, #2786C2 100%)',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        font-family: 'Sarabun', sans-serif;
+        scroll-behavior: smooth;
+        background-color: #F8F9FA;
+        color: #0D1B2A;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Poppins', sans-serif;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.561.0",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react/": "https://esm.sh/react@^19.2.3/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
