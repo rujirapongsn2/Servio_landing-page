@@ -1,0 +1,10 @@
+/* Custom Styles if needed - mostly using Tailwind */
+body {
+    font-family: 'Sarabun', sans-serif;
+    scroll-behavior: smooth;
+    background-color: #F8F9FA;
+    color: #0D1B2A;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+}

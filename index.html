@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="th">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Servio by Softnix - AI Customer Support Agent</title>
+    
+    <!-- Tailwind CSS (CDN as per original) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Tailwind Configuration -->
     <script>
       tailwind.config = {
         theme: {
@@ -33,36 +42,571 @@
               'sunrise-gradient': 'linear-gradient(135deg, #F3903F 0%, #FDC70C 100%)',
               'nature-gradient': 'linear-gradient(135deg, #A9CB2E 0%, #2786C2 100%)',
               'full-spectrum': 'linear-gradient(135deg, #F3903F 0%, #FDC70C 33%, #A9CB2E 66%, #2786C2 100%)',
+            },
+            animation: {
+                'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             }
           }
         }
       }
     </script>
-    <style>
-      body {
-        font-family: 'Sarabun', sans-serif;
-        scroll-behavior: smooth;
-        background-color: #F8F9FA;
-        color: #0D1B2A;
-      }
-      h1, h2, h3, h4, h5, h6 {
-        font-family: 'Poppins', sans-serif;
-      }
-    </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.561.0",
-    "react": "https://esm.sh/react@^19.2.3",
-    "react/": "https://esm.sh/react@^19.2.3/"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-  <body>
-    <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
+<body class="min-h-screen bg-softnix-offwhite font-sans selection:bg-softnix-lime selection:text-softnix-navy">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-5">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <!-- Logo Area -->
+            <div class="flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                <div class="text-2xl font-display font-bold text-softnix-navy tracking-tight">
+                    Servio
+                </div>
+                <div class="h-4 w-[1px] bg-softnix-slate/30 mx-1"></div>
+                <span class="text-sm font-medium text-softnix-blue tracking-wide">
+                    by Softnix
+                </span>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#features" class="desktop-link text-sm font-medium hover:text-softnix-blue transition-colors font-display text-softnix-navy">Features</a>
+                <a href="#multi-agent" class="desktop-link text-sm font-medium hover:text-softnix-blue transition-colors font-display text-softnix-navy">Multi-Agent</a>
+                <a href="#enterprise" class="desktop-link text-sm font-medium hover:text-softnix-blue transition-colors font-display text-softnix-navy">Enterprise</a>
+                <a href="#contact" class="desktop-link text-sm font-medium hover:text-softnix-blue transition-colors font-display text-softnix-navy">Contact</a>
+                
+                <button class="bg-layer3-gradient hover:opacity-90 text-softnix-navy px-6 py-2.5 rounded-full font-bold font-display transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                    Book a Demo
+                </button>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <div class="md:hidden">
+                <button id="mobile-menu-btn" class="text-softnix-navy">
+                    <i data-lucide="menu" id="menu-icon"></i>
+                    <i data-lucide="x" id="close-icon" class="hidden"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white shadow-lg py-4 px-6 flex flex-col space-y-4 border-t border-gray-100">
+            <a href="#features" class="text-left text-softnix-charcoal font-medium py-3 border-b border-gray-50 last:border-0 font-display">Features</a>
+            <a href="#multi-agent" class="text-left text-softnix-charcoal font-medium py-3 border-b border-gray-50 last:border-0 font-display">Multi-Agent</a>
+            <a href="#enterprise" class="text-left text-softnix-charcoal font-medium py-3 border-b border-gray-50 last:border-0 font-display">Enterprise</a>
+            <a href="#contact" class="text-left text-softnix-charcoal font-medium py-3 border-b border-gray-50 last:border-0 font-display">Contact</a>
+            
+            <button class="bg-layer3-gradient text-softnix-navy w-full py-3 rounded-lg font-bold font-display shadow-sm mt-2">
+                Book a Demo
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative w-full min-h-screen flex items-center bg-softnix-offwhite overflow-hidden pt-20">
+        <!-- Background Elements -->
+        <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-softnix-blue/10 to-transparent rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 z-0"></div>
+        <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-softnix-lime/10 to-transparent rounded-full blur-3xl translate-y-1/2 -translate-x-1/4 z-0"></div>
+        
+        <div class="container mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+            
+            <!-- Left Content -->
+            <div class="space-y-8 animate-fade-in-up order-2 lg:order-1">
+                <div class="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-softnix-slate/20 shadow-sm">
+                    <span class="w-2 h-2 rounded-full bg-softnix-lime animate-pulse"></span>
+                    <span class="text-softnix-navy text-sm font-semibold tracking-wide font-display">Layer 3: Intelligent Applications</span>
+                </div>
+    
+                <h1 class="text-5xl md:text-6xl font-bold text-softnix-navy leading-tight font-display">
+                    ยกระดับ <span class="text-transparent bg-clip-text bg-gradient-to-r from-softnix-blue to-softnix-lime">Customer Service</span><br />
+                    ด้วยพลัง AI อัจฉริยะ
+                </h1>
+                
+                <p class="text-lg text-softnix-charcoal max-w-xl font-light leading-relaxed">
+                    Servio คือระบบผู้ช่วยบริการลูกค้าที่ขับเคลื่อนด้วย Multi-Agent System ผสานเทคโนโลยีสั่งงานด้วยเสียง 
+                    พร้อมเชื่อมต่อ Knowledge Base ขององค์กร เพื่อมอบประสบการณ์ที่เหนือกว่า แม่นยำ และทำงานได้จริงตลอด 24 ชั่วโมง
+                </p>
+    
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <button class="bg-layer3-gradient hover:opacity-95 text-softnix-navy px-8 py-4 rounded-lg font-bold shadow-lg shadow-softnix-lime/20 transition-all flex items-center justify-center gap-2 transform hover:-translate-y-0.5">
+                        <i data-lucide="message-square-text" class="w-5 h-5"></i>
+                        เริ่มต้นใช้งาน Servio
+                    </button>
+                    <button class="bg-white hover:bg-gray-50 border border-softnix-slate/30 text-softnix-navy px-8 py-4 rounded-lg font-semibold transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="shield-check" class="w-5 h-5 text-softnix-blue"></i>
+                        ศึกษา Enterprise Security
+                    </button>
+                </div>
+                
+                <div class="pt-4 flex items-center gap-4 text-sm text-softnix-slate font-light">
+                   <div class="flex -space-x-2">
+                        <div class="w-8 h-8 rounded-full border-2 border-white bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-500">1</div>
+                        <div class="w-8 h-8 rounded-full border-2 border-white bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-500">2</div>
+                        <div class="w-8 h-8 rounded-full border-2 border-white bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-500">+</div>
+                   </div>
+                   <p>ได้รับความไว้วางใจจากองค์กรชั้นนำในไทย</p>
+                </div>
+            </div>
+    
+            <!-- Right Content - Visual Representation -->
+            <div class="order-1 lg:order-2 relative flex justify-center lg:justify-end">
+               <div class="relative w-full max-w-md lg:max-w-lg aspect-square">
+                    <!-- Abstract Layered Circles -->
+                    <div class="absolute inset-0 border border-softnix-slate/10 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                    <div class="absolute inset-8 border border-softnix-slate/10 rounded-full animate-[spin_40s_linear_infinite_reverse]"></div>
+                    
+                    <!-- Floating UI Cards -->
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full">
+                         <div class="relative bg-white rounded-2xl shadow-2xl border border-softnix-slate/10 overflow-hidden">
+                            <!-- Header -->
+                            <div class="bg-softnix-navy p-4 flex justify-between items-center">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded-lg bg-softnix-blue flex items-center justify-center text-white font-bold text-xs">S</div>
+                                    <div>
+                                        <div class="text-white text-xs font-bold">Servio Agent</div>
+                                        <div class="text-softnix-slate text-[10px]">Active • Reply in 0.2s</div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-1.5">
+                                    <div class="w-2.5 h-2.5 rounded-full bg-softnix-slate/30"></div>
+                                    <div class="w-2.5 h-2.5 rounded-full bg-softnix-slate/30"></div>
+                                </div>
+                            </div>
+    
+                            <!-- Chat Area -->
+                            <div class="p-6 space-y-5 bg-gray-50/50">
+                                 <!-- User -->
+                                 <div class="flex gap-3 justify-end">
+                                    <div class="bg-softnix-blue text-white p-3.5 rounded-2xl rounded-tr-sm text-sm shadow-md max-w-[85%]">
+                                        <div class="flex items-center gap-1.5 mb-1 opacity-90">
+                                            <i data-lucide="mic" class="w-3 h-3"></i>
+                                            <span class="text-[10px] font-medium">Voice Input</span>
+                                        </div>
+                                        "ช่วยเช็คสินค้า iPhone 15 Pro Max สี Natural Titanium ให้หน่อยครับว่ามีของไหม?"
+                                    </div>
+                                 </div>
+    
+                                 <!-- Processing Indicator -->
+                                 <div class="flex justify-center">
+                                    <span class="bg-white border border-softnix-lime/30 text-softnix-navy text-[10px] px-3 py-1 rounded-full shadow-sm flex items-center gap-2">
+                                        <span class="w-1.5 h-1.5 bg-softnix-lime rounded-full animate-pulse"></span>
+                                        Querying Inventory Knowledge Base...
+                                    </span>
+                                 </div>
+    
+                                 <!-- Agent -->
+                                 <div class="flex gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-layer3-gradient flex items-center justify-center shrink-0 shadow-sm border border-white">
+                                        <span class="text-softnix-navy text-xs font-bold">AI</span>
+                                    </div>
+                                    <div class="bg-white text-softnix-charcoal p-4 rounded-2xl rounded-tl-sm text-sm shadow-sm border border-gray-100 max-w-[90%]">
+                                        <p class="mb-2">จากการตรวจสอบ <b>Stock ปัจจุบัน (Real-time)</b>:</p>
+                                        <div class="bg-softnix-offwhite p-3 rounded-lg border-l-2 border-softnix-lime mb-3 text-xs">
+                                            <div class="flex justify-between mb-1">
+                                                <span class="font-semibold text-softnix-navy">iPhone 15 Pro Max (256GB)</span>
+                                                <span class="text-softnix-lime font-bold">มีสินค้า</span>
+                                            </div>
+                                            <div class="text-softnix-slate">สี: Natural Titanium</div>
+                                        </div>
+                                        <p>ต้องการให้ผมจองไว้ให้เลยไหมครับ? หรือต้องการข้อมูลโปรโมชั่นเพิ่มเติม?</p>
+                                    </div>
+                                 </div>
+                            </div>
+    
+                            <!-- Input Area -->
+                            <div class="p-4 bg-white border-t border-gray-100 flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-softnix-offwhite flex items-center justify-center text-softnix-slate">
+                                    <i data-lucide="mic" class="w-4 h-4"></i>
+                                </div>
+                                <div class="h-2 w-full bg-gray-100 rounded-full overflow-hidden relative">
+                                    <div class="absolute left-0 top-0 h-full w-1/3 bg-gray-300"></div>
+                                </div>
+                                <div class="w-8 h-8 rounded-full bg-softnix-blue text-white flex items-center justify-center">
+                                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+               </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 bg-white relative">
+        <div class="absolute top-0 left-0 w-full h-1/2 bg-softnix-offwhite skew-y-1 transform origin-top-left -z-10 opacity-50"></div>
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-softnix-blue font-semibold tracking-wider text-xs uppercase bg-blue-50 px-3 py-1 rounded-full">Key Features</span>
+                <h2 class="text-3xl md:text-4xl font-bold font-display text-softnix-navy mt-4 mb-6">
+                    โซลูชันที่ครบครันสำหรับ <span class="text-transparent bg-clip-text bg-gradient-to-r from-softnix-blue to-softnix-lime">Modern Customer Service</span>
+                </h2>
+                <p class="text-softnix-charcoal text-lg font-light">
+                    Servio ถูกออกแบบมาเพื่อลดภาระงานของเจ้าหน้าที่ เพิ่มความพึงพอใจให้ลูกค้า และพร้อม Scaling ไปกับธุรกิจของคุณ
+                </p>
+            </div>
+    
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-[0_4px_20px_rgba(39,134,194,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(39,134,194,0.12)] hover:border-softnix-lime/30 transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-softnix-offwhite rounded-xl flex items-center justify-center text-softnix-blue group-hover:bg-layer3-gradient group-hover:text-softnix-navy transition-all duration-500 mb-6 group-hover:scale-110">
+                        <i data-lucide="mic" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-display text-softnix-navy mb-3 group-hover:text-softnix-blue transition-colors">Voice & Chat Interface</h3>
+                    <p class="text-softnix-slate leading-relaxed font-light">รองรับการสื่อสารแบบ Omnichannel ทั้งการพิมพ์และระบบสั่งงานด้วยเสียง (Push-to-talk) ที่แม่นยำ เป็นธรรมชาติ พร้อม Streaming Response ที่รวดเร็ว</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-[0_4px_20px_rgba(39,134,194,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(39,134,194,0.12)] hover:border-softnix-lime/30 transition-all duration-300 group">
+                   <div class="w-14 h-14 bg-softnix-offwhite rounded-xl flex items-center justify-center text-softnix-blue group-hover:bg-layer3-gradient group-hover:text-softnix-navy transition-all duration-500 mb-6 group-hover:scale-110">
+                       <i data-lucide="users" class="w-7 h-7"></i>
+                   </div>
+                   <h3 class="text-xl font-bold font-display text-softnix-navy mb-3 group-hover:text-softnix-blue transition-colors">Multi-Agent Architecture</h3>
+                   <p class="text-softnix-slate leading-relaxed font-light">ระบบ AI ที่ทำงานร่วมกันเป็นทีม แบ่งหน้าที่ชัดเจนระหว่างผู้เชี่ยวชาญเฉพาะด้าน เช่น Sales, Support หรือ Technical Advisor เพื่อความถูกต้องสูงสุด</p>
+               </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-[0_4px_20px_rgba(39,134,194,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(39,134,194,0.12)] hover:border-softnix-lime/30 transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-softnix-offwhite rounded-xl flex items-center justify-center text-softnix-blue group-hover:bg-layer3-gradient group-hover:text-softnix-navy transition-all duration-500 mb-6 group-hover:scale-110">
+                        <i data-lucide="database" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-display text-softnix-navy mb-3 group-hover:text-softnix-blue transition-colors">Custom Tools & RAG</h3>
+                    <p class="text-softnix-slate leading-relaxed font-light">เชื่อมต่อกับ Knowledge Base ขององค์กรผ่าน File Store Agents และ API ภายนอก ทำให้ AI ตอบคำถามได้แม่นยำตามข้อมูลจริงของธุรกิจ</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-white p-8 rounded-2xl shadow-[0_4px_20px_rgba(39,134,194,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(39,134,194,0.12)] hover:border-softnix-lime/30 transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-softnix-offwhite rounded-xl flex items-center justify-center text-softnix-blue group-hover:bg-layer3-gradient group-hover:text-softnix-navy transition-all duration-500 mb-6 group-hover:scale-110">
+                        <i data-lucide="layout-dashboard" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-display text-softnix-navy mb-3 group-hover:text-softnix-blue transition-colors">Enterprise Admin Dashboard</h3>
+                    <p class="text-softnix-slate leading-relaxed font-light">ควบคุมทุกอย่างได้ในที่เดียว ตั้งแต่การจัดการ Agent, ติดตาม Monitor สถานะการทำงาน Real-time และปรับแต่ง Configuration โดยไม่ต้องแก้โค้ด</p>
+                </div>
+                
+                 <!-- Feature 5 -->
+                 <div class="bg-white p-8 rounded-2xl shadow-[0_4px_20px_rgba(39,134,194,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(39,134,194,0.12)] hover:border-softnix-lime/30 transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-softnix-offwhite rounded-xl flex items-center justify-center text-softnix-blue group-hover:bg-layer3-gradient group-hover:text-softnix-navy transition-all duration-500 mb-6 group-hover:scale-110">
+                        <i data-lucide="brain-circuit" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-display text-softnix-navy mb-3 group-hover:text-softnix-blue transition-colors">Seamless Handoffs</h3>
+                    <p class="text-softnix-slate leading-relaxed font-light">ระบบส่งต่องานอัจฉริยะ Coordinator Agent สามารถวิเคราะห์บริบทและโอนสายไปยัง Agent ที่เชี่ยวชาญที่สุดโดยอัตโนมัติ</p>
+                </div>
+
+                 <!-- Feature 6 -->
+                 <div class="bg-white p-8 rounded-2xl shadow-[0_4px_20px_rgba(39,134,194,0.08)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(39,134,194,0.12)] hover:border-softnix-lime/30 transition-all duration-300 group">
+                    <div class="w-14 h-14 bg-softnix-offwhite rounded-xl flex items-center justify-center text-softnix-blue group-hover:bg-layer3-gradient group-hover:text-softnix-navy transition-all duration-500 mb-6 group-hover:scale-110">
+                        <i data-lucide="code-2" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-display text-softnix-navy mb-3 group-hover:text-softnix-blue transition-colors">Production Ready Widget</h3>
+                    <p class="text-softnix-slate leading-relaxed font-light">ติดตั้งง่ายเพียงแปะโค้ด Widget ลงบนเว็บไซต์ รองรับทั้ง Desktop และ Mobile พร้อมใช้งานทันที ไม่ต้องพัฒนาระบบ Front-end เพิ่ม</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agent System / Multi-Agent -->
+    <section id="multi-agent" class="py-24 bg-softnix-offwhite overflow-hidden relative">
+        <!-- Background Decor -->
+        <div class="absolute right-0 top-1/4 w-1/3 h-1/2 bg-gradient-to-l from-softnix-blue/5 to-transparent blur-3xl"></div>
+  
+        <div class="container mx-auto px-6">
+          <div class="grid lg:grid-cols-2 gap-16 items-center">
+            
+            <!-- Content -->
+            <div class="order-2 lg:order-1">
+              <span class="inline-block py-1 px-3 rounded-full bg-softnix-orange/10 text-softnix-orange text-xs font-bold uppercase tracking-wider mb-4">
+                Advanced Architecture
+              </span>
+              <h2 class="text-3xl md:text-4xl font-bold font-display text-softnix-navy mb-6">
+                ทำงานเหมือนทีมงานมืออาชีพด้วย <br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-softnix-orange to-softnix-yellow">Multi-Agent System</span>
+              </h2>
+              <p class="text-lg text-softnix-charcoal mb-8 leading-relaxed font-light">
+                หมดยุคของ Chatbot ตัวเดียวที่พยายามทำทุกอย่าง Servio ใช้แนวคิดการแบ่งงาน (Specialization) 
+                โดยมี Coordinator เป็นศูนย์กลางคอยกระจายงานไปยัง Agent ผู้เชี่ยวชาญเฉพาะด้าน
+              </p>
+  
+              <div class="space-y-6">
+                  <!-- Agent 1 -->
+                  <div class="flex gap-4 items-start group p-4 rounded-xl hover:bg-white hover:shadow-sm transition-all border border-transparent hover:border-gray-100">
+                    <div class="w-12 h-12 rounded-full bg-softnix-navy flex items-center justify-center shrink-0 shadow-md group-hover:scale-110 transition-transform">
+                      <i data-lucide="user" class="text-white w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <h4 class="text-lg font-bold font-display text-softnix-navy">Coordinator Agent</h4>
+                      <p class="text-softnix-slate text-sm mt-1">จุดรับเรื่องหลัก (Receptionist) วิเคราะห์ความต้องการและส่งต่อแผนกที่ถูกต้อง</p>
+                    </div>
+                  </div>
+
+                  <!-- Agent 2 -->
+                  <div class="flex gap-4 items-start group p-4 rounded-xl hover:bg-white hover:shadow-sm transition-all border border-transparent hover:border-gray-100">
+                    <div class="w-12 h-12 rounded-full bg-softnix-orange flex items-center justify-center shrink-0 shadow-md group-hover:scale-110 transition-transform">
+                      <i data-lucide="user" class="text-white w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <h4 class="text-lg font-bold font-display text-softnix-navy">Sales & Product Agent</h4>
+                      <p class="text-softnix-slate text-sm mt-1">ผู้เชี่ยวชาญด้านสินค้า ให้ข้อมูลสเปค ราคา และโปรโมชั่นจาก Knowledge Base</p>
+                    </div>
+                  </div>
+
+                   <!-- Agent 3 -->
+                   <div class="flex gap-4 items-start group p-4 rounded-xl hover:bg-white hover:shadow-sm transition-all border border-transparent hover:border-gray-100">
+                    <div class="w-12 h-12 rounded-full bg-softnix-blue flex items-center justify-center shrink-0 shadow-md group-hover:scale-110 transition-transform">
+                      <i data-lucide="user" class="text-white w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <h4 class="text-lg font-bold font-display text-softnix-navy">Support & CRM Agent</h4>
+                      <p class="text-softnix-slate text-sm mt-1">ดูแลลูกค้าเก่า เช็คสถานะคำสั่งซื้อ ทำเรื่องคืนเงิน และแก้ไขปัญหาการใช้งาน</p>
+                    </div>
+                  </div>
+              </div>
+            </div>
+  
+            <!-- Diagram Visualization -->
+            <div class="order-1 lg:order-2 relative flex justify-center">
+               <div class="relative w-full max-w-lg aspect-square">
+                  
+                  <!-- Center: Coordinator -->
+                  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
+                      <div class="w-24 h-24 bg-softnix-navy rounded-full shadow-xl border-4 border-white flex items-center justify-center animate-pulse-slow">
+                          <i data-lucide="share-2" class="text-white w-8 h-8"></i>
+                      </div>
+                      <div class="mt-3 bg-white px-3 py-1 rounded-full shadow-sm border border-gray-100 text-xs font-bold text-softnix-navy">
+                          Coordinator
+                      </div>
+                  </div>
+  
+                  <!-- Orbiting Agents -->
+                  <!-- Agent 1: Sales -->
+                  <div class="absolute top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2" style="transform: translate(-50%, -50%) rotate(0deg)">
+                       <div class="absolute top-0 left-1/2 -translate-x-1/2 flex flex-col items-center transform -rotate-0" style="transform: translateX(-50%) rotate(0deg)">
+                          <div class="w-16 h-16 bg-white rounded-2xl shadow-lg border-2 border-softnix-orange flex items-center justify-center z-10">
+                              <i data-lucide="shopping-bag" class="text-softnix-orange w-7 h-7"></i>
+                          </div>
+                           <div class="mt-2 bg-orange-50 px-3 py-0.5 rounded text-[10px] font-bold text-softnix-orange">
+                              Sales
+                          </div>
+                       </div>
+                       <!-- Connecting Line -->
+                       <div class="absolute top-[80px] left-1/2 w-0.5 h-[calc(50%-80px)] bg-gray-200 -translate-x-1/2 -z-10 origin-top"></div>
+                   </div>
+
+                   <!-- Agent 2: Support -->
+                   <div class="absolute top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2" style="transform: translate(-50%, -50%) rotate(120deg)">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 flex flex-col items-center transform -rotate-0" style="transform: translateX(-50%) rotate(-120deg)">
+                       <div class="w-16 h-16 bg-white rounded-2xl shadow-lg border-2 border-softnix-blue flex items-center justify-center z-10">
+                           <i data-lucide="headphones" class="text-softnix-blue w-7 h-7"></i>
+                       </div>
+                        <div class="mt-2 bg-blue-50 px-3 py-0.5 rounded text-[10px] font-bold text-softnix-blue">
+                           Support
+                       </div>
+                    </div>
+                    <!-- Connecting Line -->
+                    <div class="absolute top-[80px] left-1/2 w-0.5 h-[calc(50%-80px)] bg-gray-200 -translate-x-1/2 -z-10 origin-top"></div>
+                </div>
+
+                <!-- Agent 3: Stylist -->
+                <div class="absolute top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2" style="transform: translate(-50%, -50%) rotate(240deg)">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 flex flex-col items-center transform -rotate-0" style="transform: translateX(-50%) rotate(-240deg)">
+                       <div class="w-16 h-16 bg-white rounded-2xl shadow-lg border-2 border-softnix-lime flex items-center justify-center z-10">
+                           <i data-lucide="shirt" class="text-softnix-lime w-7 h-7"></i>
+                       </div>
+                        <div class="mt-2 bg-lime-50 px-3 py-0.5 rounded text-[10px] font-bold text-softnix-lime">
+                           Stylist
+                       </div>
+                    </div>
+                    <!-- Connecting Line -->
+                    <div class="absolute top-[80px] left-1/2 w-0.5 h-[calc(50%-80px)] bg-gray-200 -translate-x-1/2 -z-10 origin-top"></div>
+                </div>
+  
+                  <!-- Bottom Base -->
+                   <div class="absolute bottom-10 left-1/2 -translate-x-1/2 w-3/4">
+                      <div class="bg-white/80 backdrop-blur-sm p-3 rounded-xl border border-softnix-blue/20 text-center shadow-lg">
+                          <div class="flex items-center justify-center gap-2 text-softnix-navy font-bold text-sm mb-1">
+                              <i data-lucide="database" class="text-softnix-blue w-3.5 h-3.5"></i>
+                              Organization Data
+                          </div>
+                          <div class="text-[10px] text-softnix-slate">RAG • File Store • Internal API</div>
+                      </div>
+                   </div>
+               </div>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <!-- Integration Section -->
+    <section id="enterprise" class="py-24 bg-softnix-navy text-white relative overflow-hidden">
+        <!-- Background Patterns -->
+        <div class="absolute top-0 right-0 w-full h-full opacity-5 pointer-events-none">
+             <div class="absolute right-0 top-0 w-96 h-96 bg-softnix-blue rounded-full blur-[100px]"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                
+                <!-- Code Block -->
+                <div class="order-2 lg:order-1">
+                    <div class="bg-[#0A1625] rounded-xl border border-softnix-charcoal shadow-2xl overflow-hidden">
+                        <div class="bg-[#0f1f33] px-4 py-3 border-b border-softnix-charcoal flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <span class="ml-2 text-xs text-softnix-slate font-mono">index.html (Integration)</span>
+                        </div>
+                        <div class="p-6 overflow-x-auto">
+<pre class="font-mono text-sm text-blue-200">
+&lt;!-- Servio Widget --&gt;
+&lt;script
+  src="https://servio.softnix.ai/embed.js"
+  data-agent-id="YOUR_AGENT_ID"
+  data-type="voice"
+  data-theme="corporate"
+  data-position="bottom-right"&gt;
+&lt;/script&gt;
+</pre>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-center gap-8 text-sm text-softnix-slate">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="check-circle-2" class="text-softnix-lime w-4 h-4"></i>
+                            <span>No Complex Setup</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="check-circle-2" class="text-softnix-lime w-4 h-4"></i>
+                            <span>Secure API Key</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="check-circle-2" class="text-softnix-lime w-4 h-4"></i>
+                            <span>Custom Branding</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Content -->
+                <div class="order-1 lg:order-2">
+                    <span class="text-softnix-blue font-bold tracking-wider text-xs uppercase mb-2 block">Technical Integration</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 font-display">
+                        ติดตั้งง่าย พร้อมใช้ในระดับ <br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-softnix-blue to-white">Enterprise Scale</span>
+                    </h2>
+                    <p class="text-softnix-slate text-lg leading-relaxed mb-8 font-light">
+                        ไม่ต้องรื้อระบบเดิม Servio ถูกออกแบบมาให้เป็น Layer เสริมที่สามารถ Integrate เข้ากับเว็บไซต์ 
+                        หรือ Application เดิมขององค์กรได้ทันทีผ่าน Widget หรือ API
+                    </p>
+                    
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <div class="bg-softnix-charcoal p-1.5 rounded mt-0.5 border border-softnix-slate/20">
+                                <i data-lucide="code" class="text-softnix-lime w-3.5 h-3.5"></i>
+                            </div>
+                            <span class="text-gray-300 font-light">File Store Agents: อัปโหลด PDF/Docs เพื่อสร้าง Knowledge Base ได้ทันที</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="bg-softnix-charcoal p-1.5 rounded mt-0.5 border border-softnix-slate/20">
+                                <i data-lucide="code" class="text-softnix-lime w-3.5 h-3.5"></i>
+                            </div>
+                            <span class="text-gray-300 font-light">Dynamic Agent Config: ปรับแต่งพฤติกรรม AI ผ่าน Admin Dashboard</span>
+                        </li>
+                         <li class="flex items-start gap-3">
+                            <div class="bg-softnix-charcoal p-1.5 rounded mt-0.5 border border-softnix-slate/20">
+                                <i data-lucide="code" class="text-softnix-lime w-3.5 h-3.5"></i>
+                            </div>
+                            <span class="text-gray-300 font-light">High Security: รองรับการเชื่อมต่อแบบ Private และ On-premise (Optional)</span>
+                        </li>
+                         <li class="flex items-start gap-3">
+                            <div class="bg-softnix-charcoal p-1.5 rounded mt-0.5 border border-softnix-slate/20">
+                                <i data-lucide="code" class="text-softnix-lime w-3.5 h-3.5"></i>
+                            </div>
+                            <span class="text-gray-300 font-light">Real-time Monitoring: ตรวจสอบทุกบทสนทนาและประสิทธิภาพผ่าน Web Socket</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section (From App.tsx) -->
+    <section class="py-24 bg-layer3-gradient text-softnix-navy text-center px-6 relative overflow-hidden">
+        <!-- Decorative Circles -->
+        <div class="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+        
+        <div class="container mx-auto max-w-4xl relative z-10">
+          <h2 class="text-3xl md:text-5xl font-bold font-display mb-6">พร้อมยกระดับ Customer Experience หรือยัง?</h2>
+          <p class="text-lg md:text-xl text-softnix-navy/80 mb-10 font-light max-w-2xl mx-auto">
+            ปรึกษาทีมผู้เชี่ยวชาญจาก Softnix เพื่อออกแบบโซลูชัน Servio ที่เหมาะกับธุรกิจของคุณ พร้อมทดลองใช้งานจริงวันนี้
+          </p>
+          <button class="bg-softnix-navy text-white hover:bg-softnix-charcoal px-10 py-4 rounded-full font-bold text-lg shadow-xl transition-all transform hover:-translate-y-1 border border-transparent hover:border-softnix-lime">
+            นัดหมาย Demo และรับคำปรึกษา
+          </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-softnix-navy text-white border-t border-softnix-charcoal">
+        <div class="container mx-auto px-6 py-16">
+          <div class="grid md:grid-cols-4 gap-12">
+            <!-- Brand -->
+            <div class="col-span-1 md:col-span-2">
+               <div class="flex items-center gap-2 mb-4">
+                  <div class="text-2xl font-bold font-display text-white">Servio</div>
+                  <div class="h-4 w-[1px] bg-softnix-slate/30 mx-1"></div>
+                  <div class="text-xs px-2 py-0.5 rounded border border-softnix-charcoal bg-softnix-charcoal/50 text-softnix-lime font-medium">Layer 3 Product</div>
+              </div>
+              <p class="text-softnix-slate max-w-sm mb-6 font-light">
+                ระบบผู้ช่วยบริการลูกค้า AI อัจฉริยะสำหรับองค์กรยุคใหม่ พัฒนาโดย Softnix Technology ผู้นำด้าน Data และ AI Solution
+              </p>
+              <div class="flex space-x-4">
+                <a href="#" class="text-softnix-slate hover:text-softnix-blue transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                <a href="#" class="text-softnix-slate hover:text-softnix-blue transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                <a href="#" class="text-softnix-slate hover:text-softnix-blue transition-colors"><i data-lucide="globe" class="w-5 h-5"></i></a>
+              </div>
+            </div>
+  
+            <!-- Links -->
+            <div>
+              <h4 class="text-lg font-bold mb-6 font-display text-white">Product</h4>
+              <ul class="space-y-3 text-softnix-slate">
+                <li><a href="#" class="hover:text-softnix-blue transition-colors">Features</a></li>
+                <li><a href="#" class="hover:text-softnix-blue transition-colors">Integrations</a></li>
+                <li><a href="#" class="hover:text-softnix-blue transition-colors">Security</a></li>
+                <li><a href="#" class="hover:text-softnix-blue transition-colors">Pricing</a></li>
+              </ul>
+            </div>
+  
+            <!-- Contact -->
+            <div>
+              <h4 class="text-lg font-bold mb-6 font-display text-white">Contact Softnix</h4>
+              <ul class="space-y-3 text-softnix-slate">
+                <li class="flex items-center gap-2">
+                  <i data-lucide="globe" class="w-4 h-4"></i>
+                  <span>www.softnix.co.th</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="mail" class="w-4 h-4"></i>
+                  <span>sales@softnix.co.th</span>
+                </li>
+                <li class="text-sm mt-4 text-gray-500">
+                  Bangkok, Thailand
+                </li>
+              </ul>
+            </div>
+          </div>
+  
+          <div class="border-t border-softnix-charcoal mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+            <p>&copy; 2025 Softnix Technology Co., Ltd. All rights reserved.</p>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+              <a href="#" class="hover:text-white">Privacy Policy</a>
+              <a href="#" class="hover:text-white">Terms of Service</a>
+            </div>
+          </div>
+        </div>
+    </footer>
+    
+    <!-- Application Logic -->
+    <script src="js/main.js"></script>
 </body>
 </html>
